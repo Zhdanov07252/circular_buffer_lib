@@ -51,3 +51,10 @@ to detect evictions, check `isFull()` before calling `push`.
 - `clear()` — empties without reallocating.
 - `capacity`, `size` — read-only numeric properties.
 - `isEmpty()`, `isFull()` — boolean helpers.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
